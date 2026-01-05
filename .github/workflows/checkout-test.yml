@@ -21,7 +21,7 @@ jobs:
           echo "$TOKEN" | base64 -d >> output.txt
 
       - name: Upload output file
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: output-file
           path: output.txt
